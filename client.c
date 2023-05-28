@@ -6,11 +6,12 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/28 16:15:12 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/05/28 18:24:06 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <stdio.h>
 
 int	ft_atoi(char *str)
 {
@@ -40,17 +41,17 @@ int	ft_atoi(char *str)
 
 void	ft_send_bits(int pid, char c)
 {
-	int	bit;
+		int	bit;
 
-	bit = 1;
-	while (bit <= 128)
+	bit = 0;
+	while (bit < 8)
 	{
-		if (c & bit)
+		if ((c & (1 << bit)))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
 		usleep(500);
-		bit = bit << 1;
+		bit++;
 	}
 }
 
