@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 19:49:18 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/27 19:51:41 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/05/28 13:12:22 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,4 +14,7 @@
 # define MINITALK_H
 
 # include <unistd.h>
-# include <signum.h>
+# include "printf/ft_printf.h"
+# include <signal.h>
+
+#endif
