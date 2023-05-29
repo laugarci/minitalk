@@ -6,14 +6,14 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:51 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/28 18:18:04 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:44:30 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 #include <stdio.h>
 
-void ft_bits(int sig)
+void	ft_bits(int sig)
 {
 	static int	bit;
 	static int	i;
@@ -29,22 +29,17 @@ void ft_bits(int sig)
 	}
 }
 
-int main(int ac, char **argv)
+int	main(void)
 {
-    int pid;
+	int	pid;
 
-    if (ac != 1)
-    {
-        printf("Error\n");
-        return 1;
-    }
-    pid = getpid();
-    printf("%d\n", pid);
-	while(ac == 1)
+	pid = getpid();
+	ft_printf("%d\n", pid);
+	while (1)
 	{	
 		signal(SIGUSR1, ft_bits);
 		signal(SIGUSR2, ft_bits);
 		pause();
 	}
-    return 0;
+	return (0);
 }
