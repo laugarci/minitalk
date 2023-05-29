@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/29 17:32:34 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/05/29 20:00:30 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,6 @@ void	ft_send_bits(int pid, char c)
 	}
 }
 
-void	write_next_message(int pid)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = "\nWaiting next message...\n";
-	while (str[i])
-	{
-		ft_send_bits(pid, str[i]);
-		i++;
-	}
-}
-
 int	main(int ac, char **av)
 {
 	int	pid;
@@ -88,7 +74,6 @@ int	main(int ac, char **av)
 			ft_send_bits(pid, av[2][i]);
 			i++;
 		}
-		write_next_message(pid);
 	}
 	return (0);
 }
