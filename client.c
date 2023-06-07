@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/29 20:00:30 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:33:25 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,21 @@ void	ft_send_bits(int pid, char c)
 	while (bit < 8)
 	{
 		if ((c & (1 << bit)))
-			kill(pid, SIGUSR1);
+		{
+			if (kill(pid, SIGUSR1) == -1)
+			{
+				write(1, "Incorrect PID\n", 14);
+				exit(-1);
+			}
+		}
 		else
-			kill(pid, SIGUSR2);
+		{
+			if (kill(pid, SIGUSR2) == -1)
+			{
+				write(1, "Incorrect PID\n", 14);
+				exit(-1);
+			}
+		}
 		usleep(500);
 		bit++;
 	}

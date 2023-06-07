@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:51 by laugarci          #+#    #+#             */
-/*   Updated: 2023/05/29 20:06:22 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/06/07 17:06:44 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	ft_bits(int sig)
 	static int	i;
 
 	if (sig == SIGUSR1)
+	{
 		i = i | (1 << bit);
+	}
 	bit++;
 	if (bit == 8)
 	{
