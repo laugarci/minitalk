@@ -6,45 +6,60 @@
 #    By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 17:55:18 by laugarci          #+#    #+#              #
-#    Updated: 2023/06/07 18:27:11 by laugarci         ###   ########.fr        #
+#    Updated: 2023/06/08 18:18:47 by laugarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME_SERVER = server
-NAME_CLIENT = client
+NAME = minitalk
+CLIENT = client
+SERVER = server
 
-SRCS_CLIENT = client.c
-SRCS_SERVER = server.c
-PRINTF_PATH = printf/
-CC = gcc
-RM = rm -rf
-CFLAGS = -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror
 
-OBJS_CLIENT = $(SRCS_CLIENT:.c=.o)
-DEPS_CLIENT = $(SRC_CLIENT:.c=.d)
-OBJS_SERVER = $(SRCS_SERVER:.c=.o)
-DEPS_SERVER = $(SRC_SERVER:.c=.d)
+SRC_CLIENT = client.c
+OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
+DEP_CLIENT = $(SRC_CLIENT:.c=.d)
 
-all: subsystems
-	$(OBJS_SERVER) $(OBJS_CLIENT)
-	$(CC) $(CFLAGS) $(SRCS_SERVER) -o $(NAME_SERVER)
-	$(CC) $(CFLAGS) $(SRCS_CLIENT) -o $(NAME_CLIENT)
+SRC_SERVER = server.c
+OBJ_SERVER = $(SRC_SERVER:.c=.o)
+DEP_SERVER = $(SRC_SERVER:.c=.d)
 
-subsystems:
-	make -C $(PRINTF_PATH) all
+RM = rm -f
 
-client: $(OBJS_CLIENT)
-	$(CC) $(CFLAGS) $(SRCS_CLIENT) -o $(NAME_CLIENT)
+%.o: %.c $(LIBS) Makefile
+	@$(CC) $(CFLAGS) -MMD -I./ -c $< -o $@
 
-server: $(OBJS_SERVER) subsystems
-	$(CC) $(CFLAGS) $(SRCS_SERVER) -o $(NAME_SERVER)
+all:
+	@$(MAKE) -C printf
+	@$(MAKE) $(CLIENT)
+	@$(MAKE) $(SERVER)
+
+$(CLIENT):: $(OBJ_CLIENT)
+	@$(MAKE) -C printf
+	@$(CC) $(CFLAGS) $(OBJ_CLIENT) -o $@
+	@echo "client compiled $<..."
+
+$(CLIENT)::
+	@echo -n
+
+$(SERVER):: $(OBJ_SERVER)
+	@$(MAKE) -C printf
+	@$(CC) $(CFLAGS) $(OBJ_SERVER) -o $@
+	@echo "server compiled $<..."
+
+$(SERVER)::
+	@echo -n
 
 clean:
-			$(RM) $(OBJS_CLIENT) $(OBJS_SERVER)
+	@$(RM) $(OBJ_SERVER) $(OBJ_CLIENT) $(DEP_SERVER) $(DEP_CLIENT)
+	@$(MAKE) clean -C printf
 
 fclean: clean
-			$(RM) $(NAME_CLIENT) $(NAME_SERVER)
+	@$(RM) $(CLIENT) $(SERVER)
 
 re: fclean all
 
-.PHONY: all client server clean fclean re bonus
+.PHONY: all clean fclean re bonus
+
+-include $(DEP_CLIENT)
+-include $(DEP_SERVER)
