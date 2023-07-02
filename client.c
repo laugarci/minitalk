@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/07/02 14:51:54 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/07/02 15:35:05 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	check_signal(int signal)
 {
-	static int rec;
+	static int	rec;
 
 	if (signal == SIGINT)
 		rec = 1;
@@ -89,13 +89,12 @@ int	main(int ac, char **av)
 	int	pid;
 	int	i;
 
-	i = 0;
 	if (ac != 3)
-	{
 		write(1, "Arguments error. Abort\n", 24);
+	if (ac != 3)
 		return (0);
-	}
-	while(av[1][i])
+	i = 0;
+	while (av[1][i])
 	{
 		if (!ft_isdigit(av[1][i++]))
 		{
@@ -105,11 +104,10 @@ int	main(int ac, char **av)
 	}
 	signal(SIGINT, (void *)&check_signal);
 	pid = ft_atoi(av[1]);
+	i = 0;
 	while (av[2][i] != '\0')
-	{
 		if (ft_send_bits(pid, av[2][i++]))
 			if (ft_send_bits(pid, '\0'))
 				break ;
-	}
 	return (0);
 }
