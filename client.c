@@ -6,12 +6,21 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/06/07 17:33:25 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/07/02 14:51:54 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 #include <stdio.h>
+
+static int	check_signal(int signal)
+{
+	static int rec;
+
+	if (signal == SIGINT)
+		rec = 1;
+	return (rec);
+}
 
 int	ft_atoi(char *str)
 {
@@ -39,7 +48,15 @@ int	ft_atoi(char *str)
 	return (j * flag);
 }
 
-void	ft_send_bits(int pid, char c)
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_send_bits(int pid, char c)
 {
 	int	bit;
 
@@ -54,9 +71,8 @@ void	ft_send_bits(int pid, char c)
 				exit(-1);
 			}
 		}
-		else
+		else if (kill(pid, SIGUSR2) == -1)
 		{
-			if (kill(pid, SIGUSR2) == -1)
 			{
 				write(1, "Incorrect PID\n", 14);
 				exit(-1);
@@ -65,6 +81,7 @@ void	ft_send_bits(int pid, char c)
 		usleep(500);
 		bit++;
 	}
+	return (check_signal(0));
 }
 
 int	main(int ac, char **av)
@@ -78,14 +95,21 @@ int	main(int ac, char **av)
 		write(1, "Arguments error. Abort\n", 24);
 		return (0);
 	}
-	else
+	while(av[1][i])
 	{
-		pid = ft_atoi(av[1]);
-		while (av[2][i] != '\0')
+		if (!ft_isdigit(av[1][i++]))
 		{
-			ft_send_bits(pid, av[2][i]);
-			i++;
+			write(1, "Error: invalid PID\n", 19);
+			return (0);
 		}
+	}
+	signal(SIGINT, (void *)&check_signal);
+	pid = ft_atoi(av[1]);
+	while (av[2][i] != '\0')
+	{
+		if (ft_send_bits(pid, av[2][i++]))
+			if (ft_send_bits(pid, '\0'))
+				break ;
 	}
 	return (0);
 }
