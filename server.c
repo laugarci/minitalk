@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:51 by laugarci          #+#    #+#             */
-/*   Updated: 2023/07/02 15:13:55 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:24:04 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(void)
 	pid = getpid();
 	ft_printf("%d\n", pid);
 	while (1)
-	{	
+	{
 		signal(SIGUSR1, ft_bits);
 		signal(SIGUSR2, ft_bits);
 		pause();

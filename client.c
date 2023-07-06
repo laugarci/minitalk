@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/07/02 15:35:05 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/07/06 13:23:49 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_atoi(char *str)
 	j = 0;
 	flag = 1;
 	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
-			i++;
+		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
