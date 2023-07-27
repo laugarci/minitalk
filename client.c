@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 18:28:36 by laugarci          #+#    #+#             */
-/*   Updated: 2023/07/08 15:15:31 by laugarci         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:27:12 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,10 @@ int	main(int ac, char **av)
 	pid = ft_atoi(av[1]);
 	i = 0;
 	while (av[2][i] != '\0')
+	{
 		if (ft_send_bits(pid, av[2][i++]))
 			if (ft_send_bits(pid, '\0'))
 				break ;
+	}
 	return (0);
 }

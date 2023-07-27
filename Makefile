@@ -6,7 +6,7 @@
 #    By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/29 17:55:18 by laugarci          #+#    #+#              #
-#    Updated: 2023/06/11 11:47:36 by laugarci         ###   ########.fr        #
+#    Updated: 2023/07/27 17:27:25 by laugarci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ CFLAGS = -Wall -Wextra -Werror
 SRC_CLIENT = client.c
 OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
 DEP_CLIENT = $(SRC_CLIENT:.c=.d)
+
 
 SRC_SERVER = server.c
 OBJ_SERVER = $(SRC_SERVER:.c=.o)
